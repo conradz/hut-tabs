@@ -1,5 +1,6 @@
 var tabs = require('../'),
-    events = require('chi-events');
+    events = require('chi-events'),
+    document = window.document;
 
 var myTabs = tabs(document.querySelector('#my-tabs'));
 
