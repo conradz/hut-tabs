@@ -1,5 +1,8 @@
 # hut-tabs
 
+[![Build Status](https://drone.io/github.com/conradz/hut-tabs/status.png)](https://drone.io/github.com/conradz/hut-tabs/latest)
+[![Dependency Status](https://gemnasium.com/conradz/hut-tabs.png)](https://gemnasium.com/conradz/hut-tabs)
+
 HTML UI Toolkit tabs component
 
 Break up your content into multiple tabs. Switch between tabs on the client
