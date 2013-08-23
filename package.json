@@ -11,7 +11,8 @@
     "test": "hut-build test",
     "lint": "hut-build lint",
     "serve": "hut-build serve",
-    "serve-test": "hut-build serve-test"
+    "serve-test": "hut-build serve-test",
+    "build": "hut-build build"
   },
   "repository": {
     "type": "git",
