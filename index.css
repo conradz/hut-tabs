@@ -6,39 +6,42 @@
     border-bottom: 1px solid #CCC;
 }
 
-.tabs-list li {
-    position: relative;
-    display: block;
-
+.tabs-list li {    
     float: left;
-    margin: 0 0 0 5px;
-    padding: 5px 10px;
-
+    margin: 0 0 -1px 0;
+    padding: 10px 15px;
+    
     border: 1px solid transparent;
-    background-color: #FFF;
-}
+    border-radius: 3px 3px 0 0;
 
-
-.tabs-list:before,
-.tabs-list:after {
-    content: "";
-    display: table;
-}
-
-.tabs-list:after {
-    clear:both;
+    border-bottom-color: #CCC;
+    
+    cursor: pointer;
 }
 
 .tabs-list li.tabs-selected {
     border-color: #CCC;
     border-bottom-color: #FFF;
+    
+    cursor: default;
+}
+
+/* Clearfix */
+.tabs-list:before,
+.tabs-list:after {
+    content: "";
+    display: table;
+}
+.tabs-list:after {
+    clear:both;
 }
 
 .tabs-section {
     display: none;
 
     padding: 5px;
-    border-bottom: 1px solid #CCC;
+    border: 1px solid #CCC;
+    border-top: none;
 }
 
 .tabs-section.tabs-selected {
