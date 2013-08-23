@@ -1,5 +1,7 @@
 # hut-tabs
 
+[![NPM](https://nodei.co/npm/hut-tabs.png?compact=true)](https://nodei.co/npm/hut-tabs/)
+
 [![Build Status](https://drone.io/github.com/conradz/hut-tabs/status.png)](https://drone.io/github.com/conradz/hut-tabs/latest)
 [![Dependency Status](https://gemnasium.com/conradz/hut-tabs.png)](https://gemnasium.com/conradz/hut-tabs)
 
