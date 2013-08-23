@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>hut-tabs</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="content">
+    <header>
+        <h1>Tabs Example</h1>
+    </header>
+
+    <p>
+        Click on the tab headers to switch between tabs. The buttons below
+        demonstrate selecting a tab with JS.
+    </p>
+
+    <p>
+        <button id="select-first">Select First</button>
+        <button id="select-dogs">Select Dogs</button>
+    </p>
+
+    <div id="my-tabs" class="hut-tabs">
+        <ul class="tabs-list">
+            <li>General</li>
+            <li>Dogs</li>
+            <li>Cats</li>
+        </ul>
+        <div class="tabs-section">
+            <p>General boring information here...</p>
+        </div>
+        <div id="dogs" class="tabs-section">
+            <p>Cute pics of dogs</p>
+            <p>
+                <img src="https://farm4.staticflickr.com/3248/2940430356_eef721c53a_o.jpg">
+            </p>
+        </div>
+        <div id="kittens" class="tabs-section">
+            <p>Cute pics of kittens</p>
+            <p>
+                <img src="https://farm5.staticflickr.com/4141/4878878197_31de9837ba.jpg">
+            </p>
+        </div>
+    </div>
+</div>
+        <script src="script.js"></script>
+    </body>
+</html>
