@@ -1,0 +1,46 @@
+.tabs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    border-bottom: 1px solid #CCC;
+}
+
+.tabs-list li {
+    position: relative;
+    display: block;
+
+    float: left;
+    margin: 0 0 0 5px;
+    padding: 5px 10px;
+
+    border: 1px solid transparent;
+    background-color: #FFF;
+}
+
+
+.tabs-list:before,
+.tabs-list:after {
+    content: "";
+    display: table;
+}
+
+.tabs-list:after {
+    clear:both;
+}
+
+.tabs-list li.tabs-selected {
+    border-color: #CCC;
+    border-bottom-color: #FFF;
+}
+
+.tabs-section {
+    display: none;
+
+    padding: 5px;
+    border-bottom: 1px solid #CCC;
+}
+
+.tabs-section.tabs-selected {
+    display: block;
+}
