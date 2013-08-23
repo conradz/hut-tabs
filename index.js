@@ -62,4 +62,5 @@ Tabs.prototype.select = function(section) {
 
     classes(section.header, section.content).add('tabs-selected');
     this.selected = section;
+    this.emit('select', section);
 };

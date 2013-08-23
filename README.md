@@ -52,6 +52,12 @@ Creates a new tabs component and attaches the event handlers. It will return a
 new object that contains the function documented below. The first tab is
 automatically selected.
 
+### `#selected`
+
+An object that indicates the currently selected section. It is an object that
+contains a `header` property with the header `li` DOM node and a `content`
+property with the `.tabs-section` DOM node.
+
 ### `#select(section)`
 
 Selects a tab section. If `section` is a number, it will select the section at
@@ -60,8 +66,9 @@ an element, it must be one of the `tabs-section` elements.
 
 ### `Event: select(section)`
 
-Triggered when a new section is selected. `section` will be the DOM element of
-the selection.
+Triggered when a new section is selected. `section` will be an object that
+contains a `header` property with the `li` header DOM node and a `content`
+property with the `.tabs-section` DOM node.
 
 ## Style Reference
 

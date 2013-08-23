@@ -31,7 +31,9 @@
     "url": "https://github.com/conradz/hut-tabs/issues"
   },
   "devDependencies": {
-    "hut-build": "0.0.3"
+    "hut-build": "0.0.3",
+    "chi-create": "0.0.1",
+    "tape": "~1.0.4"
   },
   "dependencies": {
     "lodash": "~1.3.1",
