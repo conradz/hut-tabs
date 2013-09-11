@@ -5,10 +5,7 @@
 [![Build Status](https://drone.io/github.com/conradz/hut-tabs/status.png)](https://drone.io/github.com/conradz/hut-tabs/latest)
 [![Dependency Status](https://gemnasium.com/conradz/hut-tabs.png)](https://gemnasium.com/conradz/hut-tabs)
 
-HTML UI Toolkit tabs component
-
-Break up your content into multiple tabs. Switch between tabs on the client
-using JS.
+HTML UI Toolkit tabs component - Create interactive tabs in JS.
 
 Check out the [example](http://conradz.github.io/hut-tabs/)!
 
@@ -54,19 +51,20 @@ new `Tabs` object. The first tab is automatically selected.
 
 ### `#selected`
 
-The DOM node for the currently selected `.tabs-section` node, or `null` if no
+The DOM node for the currently selected `.tabs-section`, or `null` if no
 section is selected.
 
 ### `#select(section)`
 
 Selects a tab section. If `section` is a number, it will select the section at
-that index (for example use `0` if selecting the first section). If `section` is
-an element, it must be one of the `.tabs-section` elements.
+that index (for example `t.select(0)` will select the first section). If
+`section` is a DOM element, it will select the section with element. The
+element must be one of the `.tabs-section` elements.
 
 ### `Event: select(section)`
 
-Triggered when a new section is selected. `section` will be the DOM node for the
-selected `.tabs-section`.
+Triggered when a new section is selected. `section` will be the DOM node for
+the selected `.tabs-section`.
 
 ## Styling
 
