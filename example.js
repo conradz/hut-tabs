@@ -9,8 +9,8 @@ events(document.querySelector('#select-first')).on('click', function() {
     myTabs.select(0);
 });
 
-events(document.querySelector('#select-dogs')).on('click', function() {
-    myTabs.select(document.querySelector('#dogs'));
+events(document.querySelector('#select-puppies')).on('click', function() {
+    myTabs.select(document.querySelector('#puppies'));
 });
 
 },{"../":2,"chi-events":4}],2:[function(require,module,exports){
