@@ -1,0 +1,11 @@
+:root {
+    var-tabs-border-color: #CCC;
+    
+    var-tabs-header-padding: 8px 15px;
+    var-tabs-header-radius: 4px;
+    
+    var-tabs-content-padding: 10px;
+    
+    var-tabs-fade-out-time: 0.3s;
+    var-tabs-fade-in-time: 0.4s;
+}

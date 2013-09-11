@@ -18,19 +18,16 @@ function createStructure() {
 test('automatically select first tab', function(t) {
     var el = createStructure(),
         item = tabs(el);
-    t.equal(item.selected.content, el.querySelector('.general-content'));
-    t.equal(item.selected.header, el.querySelector('.general-header'));
+    t.equal(item.selected, el.querySelector('.general-content'));
     t.end();
 });
 
 test('select a section by DOM node', function(t) {
     var el = createStructure(),
         advanced = el.querySelector('.advanced-content'),
-        advancedHeader = el.querySelector('.advanced-header'),
         item = tabs(el);
     item.select(advanced);
-    t.equal(item.selected.content, advanced);
-    t.equal(item.selected.header, advancedHeader);
+    t.equal(item.selected, advanced);
     t.end();
 });
 
@@ -39,7 +36,7 @@ test('select a section by index', function(t) {
         advanced = el.querySelector('.advanced-content'),
         item = tabs(el);
     item.select(1);
-    t.equal(item.selected.content, advanced);
+    t.equal(item.selected, advanced);
     t.end();
 });
 
@@ -48,7 +45,7 @@ test('emit the select event', function(t) {
         advanced = el.querySelector('.advanced-content'),
         selected = null,
         item = tabs(el);
-    item.on('select', function(section) { selected = section.content; });
+    item.on('select', function(section) { selected = section; });
     item.select(1);
     t.equal(selected, advanced);
     t.end();
@@ -82,6 +79,6 @@ test('select a section by clicking the header', function(t) {
         advancedHeader = el.querySelector('.advanced-header'),
         item = tabs(el);
     events(advancedHeader).trigger('click');
-    t.equal(item.selected.content, advanced);
+    t.equal(item.selected, advanced);
     t.end();
 });

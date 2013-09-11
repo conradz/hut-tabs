@@ -10,31 +10,24 @@ function tabs(element) {
 module.exports = tabs;
 
 function getSections(element) {
-    var headers = element.querySelectorAll('.tabs-list li'),
-        content = element.querySelectorAll('.tabs-section'),
-        count = Math.min(headers.length, content.length),
-        sections = [];
-
-    for (var i = 0; i < count; i++) {
-        sections.push({
-            header: headers[i],
-            content: content[i]
-        });
-    }
-
-    return sections;
+    return _.zip(
+        element.querySelectorAll('.tabs-list li'),
+        element.querySelectorAll('.tabs-section'));
 }
 
 function Tabs(element) {
     EventEmitter.call(this);
 
-    this._sections = getSections(element);
+    this._section = null;
     this.selected = null;
+    this._sections = getSections(element);
+
     this.select(0);
 
     var self = this;
     this._sections.forEach(function(section, i) {
-        events(section.header).on('click', function(e) {
+        var header = section[0];
+        events(header).on('click', function(e) {
             e.preventDefault();
             self.select(i);
         });
@@ -47,20 +40,26 @@ Tabs.prototype.constructor = Tabs;
 Tabs.prototype.select = function(section) {
     if (typeof section === 'number') {
         section = this._sections[section];
-    } else if (section) {
-        section = _.find(this._sections, { content: section });
+    } else {
+        section = _.find(
+            this._sections,
+            function(s) { return s[1] === section });
     }
 
-    if (!section) {
-        return;
+    if (section) {
+        this._select(section);
+    }
+};
+
+Tabs.prototype._select = function(section) {
+    if (this._section) {
+        classes(this._section).remove('tabs-selected');
     }
 
-    if (this.selected) {
-        var current = this.selected;
-        classes(current.header, current.content).remove('tabs-selected');
-    }
-
-    classes(section.header, section.content).add('tabs-selected');
-    this.selected = section;
-    this.emit('select', section);
+    classes(section).add('tabs-selected');
+    this._section = section;
+    
+    var content = section[1];
+    this.selected = content;
+    this.emit('select', content);
 };

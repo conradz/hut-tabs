@@ -1,49 +1,58 @@
-.tabs-list {
+@import "hut-base";
+@import "./variables";
+
+.hut-tabs .tabs-section {
+    /* Hide content until it is selected */
+    display: none;
+    
+    padding: var(tabs-content-padding);
+    
+    /* Border around content, excluding top */
+    border: 1px solid var(tabs-border-color);
+    border-top: none;
+}
+
+.hut-tabs .tabs-section.tabs-selected {
+    display: block;
+}
+
+
+.hut-tabs .tabs-list {
     list-style: none;
     margin: 0;
     padding: 0;
 
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid var(tabs-border-color);
 }
 
-.tabs-list li {    
+.hut-tabs .tabs-list li {    
     float: left;
     margin: 0 0 -1px 0;
-    padding: 10px 15px;
+    padding: var(tabs-header-padding);
     
     border: 1px solid transparent;
-    border-radius: 3px 3px 0 0;
+    border-radius: var(tabs-header-radius) var(tabs-header-radius) 0 0;
 
-    border-bottom-color: #CCC;
-    
+    border-bottom-color: var(tabs-border-color);
+
     cursor: pointer;
 }
 
-.tabs-list li.tabs-selected {
-    border-color: #CCC;
+.hut-tabs .tabs-list li.tabs-selected {
+    border-color: var(tabs-border-color);
+
+    /* Clear border beneath the tab */
     border-bottom-color: #FFF;
-    
+
     cursor: default;
 }
 
-/* Clearfix */
-.tabs-list:before,
-.tabs-list:after {
+/* Clear the tabs list without using overflow: hidden */
+.hut-tabs .tabs-list:before,
+.hut-tabs .tabs-list:after {
     content: "";
     display: table;
 }
-.tabs-list:after {
-    clear:both;
-}
-
-.tabs-section {
-    display: none;
-
-    padding: 5px;
-    border: 1px solid #CCC;
-    border-top: none;
-}
-
-.tabs-section.tabs-selected {
-    display: block;
+.hut-tabs .tabs-list:after {
+    clear: both;
 }
