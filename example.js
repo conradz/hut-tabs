@@ -59,7 +59,7 @@ Tabs.prototype.select = function(section) {
     } else {
         section = _.find(
             this._sections,
-            function(s) { return s[1] === section });
+            function(s) { return s[1] === section; });
     }
 
     if (section) {
