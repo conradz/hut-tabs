@@ -5,6 +5,8 @@
 [![Build Status](https://drone.io/github.com/conradz/hut-tabs/status.png)](https://drone.io/github.com/conradz/hut-tabs/latest)
 [![Dependency Status](https://gemnasium.com/conradz/hut-tabs.png)](https://gemnasium.com/conradz/hut-tabs)
 
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/hut-tabs.svg)](https://saucelabs.com/u/hut-tabs)
+
 HTML UI Toolkit tabs component - Create interactive tabs in JS.
 
 Check out the [example](http://conradz.github.io/hut-tabs/)!
