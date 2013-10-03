@@ -31,14 +31,15 @@
     "url": "https://github.com/conradz/hut-tabs/issues"
   },
   "devDependencies": {
-    "hut-build": "~0.1.2",
-    "chi-create": "0.0.1",
-    "tape": "~1.1.0"
+    "hut-build": "~0.1.5",
+    "chi-create": "0.0.2",
+    "tape": "~1.1.1"
   },
   "dependencies": {
-    "lodash": "~1.3.1",
-    "chi-classes": "0.0.2",
-    "chi-events": "0.0.3",
-    "hut-base": "0.0.2"
+    "chi-classes": "0.0.3",
+    "chi-events": "0.0.4",
+    "hut-base": "0.0.2",
+    "mout": "~0.7.1",
+    "emitter-component": "~1.0.1"
   }
 }

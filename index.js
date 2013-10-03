@@ -1,25 +1,26 @@
-var EventEmitter = require('events').EventEmitter,
-    _ = require('lodash'),
+var Emitter = require('emitter-component'),
     classes = require('chi-classes'),
-    events = require('chi-events');
+    events = require('chi-events'),
+    zip = require('mout/array/zip'),
+    find = require('mout/array/find'),
+    inheritPrototype = require('mout/lang/inheritPrototype');
 
+module.exports = tabs;
 function tabs(element) {
     return new Tabs(element);
 }
 
-module.exports = tabs;
-
 function getSections(element) {
-    return _.zip(
+    return zip(
         element.querySelectorAll('.tabs-list li'),
         element.querySelectorAll('.tabs-section'));
 }
 
 function Tabs(element) {
-    EventEmitter.call(this);
+    Emitter.call(this);
 
-    this._section = null;
     this.selected = null;
+    this._section = null;
     this._sections = getSections(element);
 
     this.select(0);
@@ -34,14 +35,13 @@ function Tabs(element) {
     });
 }
 
-Tabs.prototype = Object.create(EventEmitter.prototype);
-Tabs.prototype.constructor = Tabs;
+inheritPrototype(Tabs, Emitter);
 
 Tabs.prototype.select = function(section) {
     if (typeof section === 'number') {
         section = this._sections[section];
     } else {
-        section = _.find(
+        section = find(
             this._sections,
             function(s) { return s[1] === section; });
     }
