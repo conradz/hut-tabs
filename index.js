@@ -3,65 +3,65 @@
 var Emitter = require('emitter-component'),
     classes = require('chi-classes'),
     events = require('chi-events'),
-    zip = require('mout/array/zip'),
-    find = require('mout/array/find'),
-    inheritPrototype = require('mout/lang/inheritPrototype');
+    inheritPrototype = require('mout/lang/inheritPrototype'),
+    indexOf = require('mout/array/indexOf');
 
 module.exports = tabs;
 function tabs(element) {
     return new Tabs(element);
 }
 
-function getSections(element) {
-    return zip(
-        element.querySelectorAll('.tabs-list li'),
-        element.querySelectorAll('.tabs-section'));
-}
-
 function Tabs(element) {
     Emitter.call(this);
 
+    this.element = element;
     this.selected = null;
-    this._section = null;
-    this._sections = getSections(element);
+    this._current = null;
 
     this.select(0);
 
     var self = this;
-    this._sections.forEach(function(section, i) {
-        var header = section[0];
-        events(header).on('click', function(e) {
+    events(element)
+        .children('.tabs-list li')
+        .on('click', function(e) {
             e.preventDefault();
-            self.select(i);
+            self.select(this);
         });
-    });
 }
 
 inheritPrototype(Tabs, Emitter);
 
 Tabs.prototype.select = function(section) {
+    var sections = this.element.querySelectorAll('.tabs-section'),
+        headings = this.element.querySelectorAll('.tabs-list li');
+
+    var index;
     if (typeof section === 'number') {
-        section = this._sections[section];
+        index = section;
     } else {
-        section = find(
-            this._sections,
-            function(s) { return s[1] === section; });
+        index = indexOf(sections, section);
+        if (index === -1) {
+            index = indexOf(headings, section);
+        }
     }
 
-    if (section) {
-        this._select(section);
+
+    var heading = headings[index];
+    section = sections[index];
+    if (!heading || !section) {
+        throw new Error('Invalid tab selection');
     }
+
+    this._select(heading, section);
 };
 
-Tabs.prototype._select = function(section) {
-    if (this._section) {
-        classes(this._section).remove('tabs-selected');
+Tabs.prototype._select = function(heading, section) {
+    if (this._current) {
+        classes(this._current).remove('tabs-selected');
     }
 
-    classes(section).add('tabs-selected');
-    this._section = section;
-    
-    var content = section[1];
-    this.selected = content;
-    this.emit('select', content);
+    classes(heading, section).add('tabs-selected');
+    this._current = [heading, section];
+    this.selected = section;
+    this.emit('select', section);
 };

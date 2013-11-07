@@ -1,10 +1,11 @@
 'use strict';
 
-var test = require('tape'),
+var tape = require('tape'),
     tabs = require('./'),
     create = require('chi-create'),
     events = require('chi-events'),
-    classes = require('chi-classes');
+    classes = require('chi-classes'),
+    body = window.document.body;
 
 function createStructure() {
     return create('div', { 'class': 'chi-create' },
@@ -17,34 +18,39 @@ function createStructure() {
             create('p', 'Advanced content')));
 }
 
-test('automatically select first tab', function(t) {
-    var el = createStructure(),
-        item = tabs(el);
+function test(name, func) {
+    tape(name, function(t) {
+        var dom = createStructure();
+        body.appendChild(dom);
+        func(t, dom);
+        body.removeChild(dom);
+    });
+}
+
+test('automatically select first tab', function(t, el) {
+    var item = tabs(el);
     t.equal(item.selected, el.querySelector('.general-content'));
     t.end();
 });
 
-test('select a section by DOM node', function(t) {
-    var el = createStructure(),
-        advanced = el.querySelector('.advanced-content'),
+test('select a section by DOM node', function(t, el) {
+    var advanced = el.querySelector('.advanced-content'),
         item = tabs(el);
     item.select(advanced);
     t.equal(item.selected, advanced);
     t.end();
 });
 
-test('select a section by index', function(t) {
-    var el = createStructure(),
-        advanced = el.querySelector('.advanced-content'),
+test('select a section by index', function(t, el) {
+    var advanced = el.querySelector('.advanced-content'),
         item = tabs(el);
     item.select(1);
     t.equal(item.selected, advanced);
     t.end();
 });
 
-test('emit the select event', function(t) {
-    var el = createStructure(),
-        advanced = el.querySelector('.advanced-content'),
+test('emit the select event', function(t, el) {
+    var advanced = el.querySelector('.advanced-content'),
         selected = null,
         item = tabs(el);
     item.on('select', function(section) { selected = section; });
@@ -53,9 +59,8 @@ test('emit the select event', function(t) {
     t.end();
 });
 
-test('add the tabs-selected class', function(t) {
-    var el = createStructure(),
-        general = el.querySelector('.general-content'),
+test('add the tabs-selected class', function(t, el) {
+    var general = el.querySelector('.general-content'),
         generalHeader = el.querySelector('.general-header'),
         advanced = el.querySelector('.advanced-content'),
         advancedHeader = el.querySelector('.advanced-header'),
@@ -75,9 +80,8 @@ test('add the tabs-selected class', function(t) {
     t.end();
 });
 
-test('select a section by clicking the header', function(t) {
-    var el = createStructure(),
-        advanced = el.querySelector('.advanced-content'),
+test('select a section by clicking the header', function(t, el) {
+    var advanced = el.querySelector('.advanced-content'),
         advancedHeader = el.querySelector('.advanced-header'),
         item = tabs(el);
     events(advancedHeader).trigger('click');
