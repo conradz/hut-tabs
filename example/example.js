@@ -1,3 +1,5 @@
+'use strict';
+
 var tabs = require('../'),
     events = require('chi-events'),
     document = window.document;
