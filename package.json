@@ -33,13 +33,13 @@
   "devDependencies": {
     "hut-build": "~0.2.0",
     "chi-create": "0.0.2",
-    "tape": "~1.1.1"
+    "tape": "~2.1.0"
   },
   "dependencies": {
-    "chi-classes": "0.0.3",
-    "chi-events": "0.1.0",
+    "chi-classes": "0.0.4",
+    "chi-events": "~0.1.0",
     "hut-base": "0.0.2",
     "mout": "~0.7.1",
-    "emitter-component": "~1.0.1"
+    "emitter-component": "~1.1.0"
   }
 }
