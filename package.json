@@ -1,6 +1,6 @@
 {
   "name": "hut-tabs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "HTML UI Toolkit tabs component",
   "main": "index.js",
   "style": "index.css",
