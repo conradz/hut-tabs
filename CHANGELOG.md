@@ -1,5 +1,9 @@
 # Changelog
 
+## next
+
+ * Update `mout` to v0.8.0
+
 ## 0.0.3
 
  * Use delegated events to handle clicks
