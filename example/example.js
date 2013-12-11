@@ -10,6 +10,6 @@ events(document.querySelector('#select-first')).on('click', function() {
     myTabs.select(0);
 });
 
-events(document.querySelector('#select-puppies')).on('click', function() {
-    myTabs.select(document.querySelector('#puppies'));
+events(document.querySelector('#select-kittens')).on('click', function() {
+    myTabs.select(document.querySelector('#kittens'));
 });
