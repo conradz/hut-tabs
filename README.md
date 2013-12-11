@@ -17,17 +17,18 @@ Check out the [example](http://conradz.github.io/hut-tabs/)!
 <div id="my-tabs" class="hut-tabs">
     <ul class="tabs-list">
         <li>General</li>
-        <li>Puppies</li>
+        <li>Doge</li>
         <li>Kittens</li>
     </ul>
     <div class="tabs-section">
         General boring information here...
     </div>
     <div class="tabs-section">
-        Cute pics of puppies
+        wow<br>
+        such tabs
     </div>
     <div id="kittens" class="tabs-section">
-        Cute pics of kittens
+        I can haz tabs?
     </div>
 </div>
 ```
