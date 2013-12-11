@@ -11,11 +11,11 @@ events(document.querySelector('#select-first')).on('click', function() {
     myTabs.select(0);
 });
 
-events(document.querySelector('#select-puppies')).on('click', function() {
-    myTabs.select(document.querySelector('#puppies'));
+events(document.querySelector('#select-kittens')).on('click', function() {
+    myTabs.select(document.querySelector('#kittens'));
 });
 
-},{"../":2,"chi-events":7}],2:[function(require,module,exports){
+},{"../":2,"chi-events":6}],2:[function(require,module,exports){
 'use strict';
 
 var Emitter = require('emitter-component'),
@@ -84,7 +84,9 @@ Tabs.prototype._select = function(heading, section) {
     this.emit('select', section);
 };
 
-},{"chi-classes":3,"chi-events":7,"emitter-component":10,"mout/array/indexOf":18,"mout/lang/inheritPrototype":26}],3:[function(require,module,exports){
+},{"chi-classes":3,"chi-events":6,"emitter-component":8,"mout/array/indexOf":16,"mout/lang/inheritPrototype":26}],3:[function(require,module,exports){
+'use strict';
+
 var union = require('mout/array/union'),
     difference = require('mout/array/difference'),
     xor = require('mout/array/xor'),
@@ -101,6 +103,7 @@ function split(input) {
 
 function modifier(action) {
     function modify(node) {
+        /*jshint validthis: true */
         var existing = split(node.className);
         node.className = action(existing, this).join(' ');
     }
@@ -146,50 +149,7 @@ function classList() {
 
 module.exports = classList;
 
-},{"flatten-list":4,"mout/array/contains":13,"mout/array/difference":14,"mout/array/every":15,"mout/array/forEach":17,"mout/array/union":20,"mout/array/xor":22}],4:[function(require,module,exports){
-var isList;
-if (typeof window !== 'undefined') {
-    // Running in a browser
-    isList = (function(window, Node) {
-        return function(value) {
-            return (
-                value &&
-                typeof value === 'object' &&
-                typeof value.length === 'number' &&
-                !(value instanceof Node) &&
-                value !== window);
-        }
-    })(window, window.Node);
-} else {
-    // Running in non-browser environment
-    isList = function(value) {
-        return (
-            value &&
-            typeof value === 'object' &&
-            typeof value.length === 'number');
-    };
-}
-
-
-function add(array, value) {
-    if (isList(value)) {
-        for (var i = 0; i < value.length; i++) {
-            add(array, value[i]);
-        }
-    } else {
-        array.push(value);
-    }
-}
-
-function flatten(value) {
-    var items = [];
-    add(items, value);
-    return items;
-}
-
-module.exports = flatten;
-
-},{}],5:[function(require,module,exports){
+},{"flatten-list":9,"mout/array/contains":11,"mout/array/difference":12,"mout/array/every":13,"mout/array/forEach":15,"mout/array/union":19,"mout/array/xor":21}],4:[function(require,module,exports){
 'use strict';
 
 var matches = require('chi-matches');
@@ -248,7 +208,7 @@ function wrap(filter, handler) {
     return wrapper;
 }
 
-},{"chi-matches":8}],6:[function(require,module,exports){
+},{"chi-matches":7}],5:[function(require,module,exports){
 'use strict';
 
 // Fix bug that occurs in at least IE 9 and 10
@@ -308,7 +268,7 @@ function fix(trigger) {
     return fixedTrigger;
 }
 
-},{"mout/array/forEach":17}],7:[function(require,module,exports){
+},{"mout/array/forEach":15}],6:[function(require,module,exports){
 'use strict';
 
 var flatten = require('flatten-list'),
@@ -386,7 +346,7 @@ function createEvent(event) {
     return e;
 }
 
-},{"./delegate":5,"./ie-bug":6,"flatten-list":9,"mout/array/forEach":17}],8:[function(require,module,exports){
+},{"./delegate":4,"./ie-bug":5,"flatten-list":9,"mout/array/forEach":15}],7:[function(require,module,exports){
 // Get the right method, including vendor prefixes
 var proto = Element.prototype,
     method = (
@@ -446,15 +406,7 @@ if (method) {
     // Not supported
     module.exports = null;
 }
-},{}],9:[function(require,module,exports){
-module.exports=require(4)
-},{}],10:[function(require,module,exports){
-
-/**
- * Module dependencies.
- */
-
-var index = require('indexof');
+},{}],8:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -523,7 +475,7 @@ Emitter.prototype.once = function(event, fn){
     fn.apply(this, arguments);
   }
 
-  fn._off = on;
+  on.fn = fn;
   this.on(event, on);
   return this;
 };
@@ -561,8 +513,14 @@ Emitter.prototype.removeEventListener = function(event, fn){
   }
 
   // remove specific handler
-  var i = index(callbacks, fn._off || fn);
-  if (~i) callbacks.splice(i, 1);
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
   return this;
 };
 
@@ -614,18 +572,50 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{"indexof":11}],11:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
+var isList;
+if (typeof window !== 'undefined') {
+    // Running in a browser
+    isList = (function(window, Node) {
+        return function(value) {
+            return (
+                value &&
+                typeof value === 'object' &&
+                typeof value.length === 'number' &&
+                !(value instanceof Node) &&
+                value !== window);
+        }
+    })(window, window.Node);
+} else {
+    // Running in non-browser environment
+    isList = function(value) {
+        return (
+            value &&
+            typeof value === 'object' &&
+            typeof value.length === 'number');
+    };
+}
 
-var indexOf = [].indexOf;
 
-module.exports = function(arr, obj){
-  if (indexOf) return arr.indexOf(obj);
-  for (var i = 0; i < arr.length; ++i) {
-    if (arr[i] === obj) return i;
-  }
-  return -1;
-};
-},{}],12:[function(require,module,exports){
+function add(array, value) {
+    if (isList(value)) {
+        for (var i = 0; i < value.length; i++) {
+            add(array, value[i]);
+        }
+    } else {
+        array.push(value);
+    }
+}
+
+function flatten(value) {
+    var items = [];
+    add(items, value);
+    return items;
+}
+
+module.exports = flatten;
+
+},{}],10:[function(require,module,exports){
 
 
     /**
@@ -648,7 +638,7 @@ module.exports = function(arr, obj){
     module.exports = append;
 
 
-},{}],13:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var indexOf = require('./indexOf');
 
     /**
@@ -660,18 +650,19 @@ var indexOf = require('./indexOf');
     module.exports = contains;
 
 
-},{"./indexOf":18}],14:[function(require,module,exports){
+},{"./indexOf":16}],12:[function(require,module,exports){
 var unique = require('./unique');
 var filter = require('./filter');
 var some = require('./some');
 var contains = require('./contains');
+var slice = require('./slice');
 
 
     /**
      * Return a new Array with elements that aren't present in the other Arrays.
      */
     function difference(arr) {
-        var arrs = Array.prototype.slice.call(arguments, 1),
+        var arrs = slice(arguments, 1),
             result = filter(unique(arr), function(needle){
                 return !some(arrs, function(haystack){
                     return contains(haystack, needle);
@@ -684,7 +675,7 @@ var contains = require('./contains');
 
 
 
-},{"./contains":13,"./filter":16,"./some":19,"./unique":21}],15:[function(require,module,exports){
+},{"./contains":11,"./filter":14,"./slice":17,"./some":18,"./unique":20}],13:[function(require,module,exports){
 var makeIterator = require('../function/makeIterator_');
 
     /**
@@ -713,7 +704,7 @@ var makeIterator = require('../function/makeIterator_');
     module.exports = every;
 
 
-},{"../function/makeIterator_":23}],16:[function(require,module,exports){
+},{"../function/makeIterator_":23}],14:[function(require,module,exports){
 var makeIterator = require('../function/makeIterator_');
 
     /**
@@ -741,7 +732,7 @@ var makeIterator = require('../function/makeIterator_');
 
 
 
-},{"../function/makeIterator_":23}],17:[function(require,module,exports){
+},{"../function/makeIterator_":23}],15:[function(require,module,exports){
 
 
     /**
@@ -766,7 +757,7 @@ var makeIterator = require('../function/makeIterator_');
 
 
 
-},{}],18:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 
 
     /**
@@ -796,7 +787,23 @@ var makeIterator = require('../function/makeIterator_');
     module.exports = indexOf;
 
 
-},{}],19:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
+
+
+    var arrSlice = Array.prototype.slice;
+
+    /**
+     * Create slice of source array or array-like object
+     */
+    function slice(arr, start, end){
+        return arrSlice.call(arr, start, end);
+    }
+
+    module.exports = slice;
+
+
+
+},{}],18:[function(require,module,exports){
 var makeIterator = require('../function/makeIterator_');
 
     /**
@@ -825,7 +832,7 @@ var makeIterator = require('../function/makeIterator_');
     module.exports = some;
 
 
-},{"../function/makeIterator_":23}],20:[function(require,module,exports){
+},{"../function/makeIterator_":23}],19:[function(require,module,exports){
 var unique = require('./unique');
 var append = require('./append');
 
@@ -846,26 +853,34 @@ var append = require('./append');
 
 
 
-},{"./append":12,"./unique":21}],21:[function(require,module,exports){
-var indexOf = require('./indexOf');
+},{"./append":10,"./unique":20}],20:[function(require,module,exports){
 var filter = require('./filter');
 
     /**
      * @return {array} Array of unique items
      */
-    function unique(arr){
-        return filter(arr, isUnique);
+    function unique(arr, compare){
+        compare = compare || isEqual;
+        return filter(arr, function(item, i, arr){
+            var n = arr.length;
+            while (++i < n) {
+                if ( compare(item, arr[i]) ) {
+                    return false;
+                }
+            }
+            return true;
+        });
     }
 
-    function isUnique(item, i, arr){
-        return indexOf(arr, item, i+1) === -1;
+    function isEqual(a, b){
+        return a === b;
     }
 
     module.exports = unique;
 
 
 
-},{"./filter":16,"./indexOf":18}],22:[function(require,module,exports){
+},{"./filter":14}],21:[function(require,module,exports){
 var unique = require('./unique');
 var filter = require('./filter');
 var contains = require('./contains');
@@ -893,7 +908,22 @@ var contains = require('./contains');
 
 
 
-},{"./contains":13,"./filter":16,"./unique":21}],23:[function(require,module,exports){
+},{"./contains":11,"./filter":14,"./unique":20}],22:[function(require,module,exports){
+
+
+    /**
+     * Returns the first argument provided to it.
+     */
+    function identity(val){
+        return val;
+    }
+
+    module.exports = identity;
+
+
+
+},{}],23:[function(require,module,exports){
+var identity = require('./identity');
 var prop = require('./prop');
 var deepMatches = require('../object/deepMatches');
 
@@ -903,22 +933,24 @@ var deepMatches = require('../object/deepMatches');
      * callback/iterator providing a shortcut syntax.
      */
     function makeIterator(src, thisObj){
+        if (src == null) {
+            return identity;
+        }
         switch(typeof src) {
             case 'function':
                 // function is the first to improve perf (most common case)
+                // also avoid using `Function#call` if not needed, which boosts
+                // perf a lot in some cases
                 return (typeof thisObj !== 'undefined')? function(val, i, arr){
                     return src.call(thisObj, val, i, arr);
                 } : src;
             case 'object':
-                // typeof null == "object"
-                return (src != null)? function(val){
+                return function(val){
                     return deepMatches(val, src);
-                } : src;
+                };
             case 'string':
             case 'number':
                 return prop(src);
-            default:
-                return src;
         }
     }
 
@@ -926,7 +958,7 @@ var deepMatches = require('../object/deepMatches');
 
 
 
-},{"../object/deepMatches":30,"./prop":24}],24:[function(require,module,exports){
+},{"../object/deepMatches":30,"./identity":22,"./prop":24}],24:[function(require,module,exports){
 
 
     /**

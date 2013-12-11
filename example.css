@@ -1,34 +1,3 @@
-/*
- * Default base settings
- * Many of these settings are from Bootstrap (https://github.com/twbs/bootstrap)
- */
-
-:root {
-  /* Font settings for body */
-  var-font-family-base: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  var-font-size-base: 16px;
-  var-line-height-base: 1.5;
-  /* Font settings for headings */
-  var-font-family-heading: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  var-line-height-heading: 1.2;
-  var-font-weight-heading: 500;
-  var-font-size-h1: 2.6em;
-  var-font-size-h2: 2.15em;
-  var-font-size-h3: 1.70em;
-  var-font-size-h4: 1.25em;
-  var-font-size-h5: 1em;
-  var-font-size-h6: 0.85em;
-  /* Color for <hr> element */
-  var-hr-color: #CCC;
-  var-button-padding: 10px 20px;
-  var-button-radius: 4px;
-  var-button-text-color: #FFF;
-  var-button-color-default: #0093B8;
-  var-button-color-hover: #0FC3F0;
-  var-button-color-active: #007A99;
-  var-button-transition-time: 0.3s;
-}
-
 /* Basic layout styles */
 
 *,
@@ -39,51 +8,29 @@
   box-sizing: border-box;
 }
 
-/* Root and body element fill whole window and have no margin */
-
 html,
 body {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Enable scroll on body element */
-
-body {
+html {
+  width: 100%;
+  height: 100%;
   overflow: auto;
 }
 
-/* Element definitions for HTML5 elements, taken from normalize.css */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section,
-summary {
-  display: block;
-}
-
-audio,
-canvas,
-video {
-  display: inline-block;
+body {
+  overflow: hidden;
 }
 
 /* Fonts and other typographical settings */
 
 html {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 100%;
   line-height: 1.5;
+  color: #333;
 }
 
 h1,
@@ -92,38 +39,37 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.2;
-  margin: 20px 0 10px 0;
+  margin: 0.8rem 0 0.4rem 0;
 }
 
 h1 {
-  font-size: 2.6em;
+  font-size: 2.6rem;
 }
 
 h2 {
-  font-size: 2.15em;
+  font-size: 2.15rem;
 }
 
 h3 {
-  font-size: 1.70em;
+  font-size: 1.7rem;
 }
 
 h4 {
-  font-size: 1.25em;
+  font-size: 1.25rem;
 }
 
 h5 {
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 h6 {
-  font-size: 0.85em;
+  font-size: 0.85rem;
 }
 
 p {
-  margin: 0 0 10px 0;
+  margin: 0 0 0.5rem 0;
 }
 
 hr {
@@ -137,41 +83,69 @@ hr {
 ul,
 ol {
   margin: 0;
-  padding: 0 0 0 40px;
+  padding: 0 0 0 1.5em;
 }
 
 button {
+  border: 1px solid #999;
+  padding: 0.25em 0.75em;
+  background-color: #FFF;
+  font: inherit;
+  color: inherit;
+  transition: background-color 0.2s;
+}
+
+button:hover,
+button.hover {
+  background-color: #EEE;
+}
+
+button:active,
+button.active {
+  background-color: #CCC;
+}
+
+button:disabled {
+  background-color: #EEE;
+  border-color: #BBB;
+  color: #BBB;
+}
+
+input,
+label {
+  display: block;
+  width: 100%;
+}
+
+input {
+  color: inherit;
+  font: inherit;
+  /* line-height must be normal in Firefox, make it the same cross-browser */
+  line-height: normal;
+  outline: none;
+  border: 1px solid #999;
+  padding: 0.25em 0.5em;
+  margin: 0 0 0.5rem 0;
+  transition: 0.2s border-color;
+}
+
+input:focus {
+  border-color: #666;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline-block;
+  width: auto;
+  padding: 0;
   border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  color: #FFF;
-  background-color: #0093B8;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #0FC3F0;
-}
-
-button:active {
-  background-color: #007A99;
-}
-
-:root {
-  var-tabs-border-color: #CCC;
-  var-tabs-header-padding: 8px 15px;
-  var-tabs-header-radius: 4px;
-  var-tabs-content-padding: 10px;
-  var-tabs-fade-out-time: 0.3s;
-  var-tabs-fade-in-time: 0.4s;
 }
 
 .hut-tabs .tabs-section {
   /* Hide content until it is selected */
   display: none;
-  padding: 10px;
-  /* Border around content, excluding top */
-  border: 1px solid #CCC;
+  padding: 0.5rem 1rem;
+  border: 1px solid #999;
   border-top: none;
 }
 
@@ -183,47 +157,37 @@ button:active {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #999;
 }
 
 .hut-tabs .tabs-list li {
   float: left;
   margin: 0 0 -1px 0;
-  padding: 8px 15px;
+  padding: 0.25rem 0.75rem;
   border: 1px solid transparent;
-  border-radius: 4px 4px 0 0;
-  border-bottom-color: #CCC;
+  border-bottom-color: #999;
   cursor: pointer;
 }
 
 .hut-tabs .tabs-list li.tabs-selected {
-  border-color: #CCC;
-  /* Clear border beneath the tab */
+  border-color: #999;
+  /* Remove border beneath the tab */
   border-bottom-color: #FFF;
   cursor: default;
 }
 
 /* Clear the tabs list without using overflow: hidden */
 
-.hut-tabs .tabs-list:before,
 .hut-tabs .tabs-list:after {
   content: "";
   display: table;
-}
-
-.hut-tabs .tabs-list:after {
   clear: both;
 }
 
-.container {
+body {
   margin: 0 auto;
   padding: 0 10px 10px 10px;
   max-width: 600px;
-  overflow: hidden;
-}
-
-#my-accordion {
-  max-width: 300px;
 }
 
 img {
